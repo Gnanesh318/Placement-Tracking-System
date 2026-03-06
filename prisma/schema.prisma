@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+enum PlacementStatus {
+  NOT_PLACED
+  PLACED
+}
+
+enum Domain {
+  SOFTWARE_DEV
+  AI_ML
+  DATA_SCIENCE
+  DEVOPS
+  CYBER_SECURITY
+  CORE_ENGINEERING
+  NON_IT
+}
+
+enum ApplicationStatus {
+  APPLIED
+  SHORTLISTED
+  INTERVIEWED
+  SELECTED
+  REJECTED
+}
+
+model User {
+  id               String          @id @default(cuid())
+  name             String
+  email            String          @unique
+  password         String
+  role             Role            @default(STUDENT)
+  registerNumber   String?         @unique
+  department       String?
+  batch            String?
+  cgpa             Float?
+  profileCompleted Boolean         @default(false)
+  placementStatus  PlacementStatus @default(NOT_PLACED)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  applications Application[]
+  interests    StudentInterest[]
+
+  @@index([email])
+  @@index([role])
+  @@index([department])
+  @@index([placementStatus])
+}
+
+model StudentInterest {
+  id        String   @id @default(cuid())
+  userId    String
+  domain    Domain
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, domain])
+  @@index([userId])
+  @@index([domain])
+}
+
+model Company {
+  id           String   @id @default(cuid())
+  companyName  String
+  jobRole      String
+  ctc          Float
+  location     String
+  industryType String
+  createdAt    DateTime @default(now())
+
+  drives PlacementDrive[]
+
+  @@index([companyName])
+}
+
+model PlacementDrive {
+  id                 String   @id @default(cuid())
+  companyId          String
+  eligibilityCgpa    Float
+  allowedDepartments Json
+  driveDate          DateTime
+  active             Boolean  @default(true)
+  maxOffers          Int?
+  createdAt          DateTime @default(now())
+
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  @@index([companyId])
+  @@index([active])
+  @@index([driveDate])
+}
+
+model Application {
+  id          String            @id @default(cuid())
+  studentId   String
+  driveId     String
+  status      ApplicationStatus @default(APPLIED)
+  appliedDate DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  student User           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  drive   PlacementDrive @relation(fields: [driveId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, driveId])
+  @@index([studentId])
+  @@index([driveId])
+  @@index([status])
+}
