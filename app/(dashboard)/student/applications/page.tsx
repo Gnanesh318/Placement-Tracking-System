@@ -180,9 +180,9 @@ export default function StudentApplicationsPage() {
                                 </div>
 
                                 <div className="flex items-center gap-3 w-full md:w-auto flex-shrink-0">
-                                    <button className="flex-1 md:flex-none px-6 py-3 bg-slate-900 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-slate-200 group-hover:shadow-blue-200 whitespace-nowrap">
+                                    <button className="btn btn-primary flex-1 md:flex-none">
                                         <span>View Details</span>
-                                        <ArrowUpRight size={18} className="flex-shrink-0" />
+                                        <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                     </button>
                                 </div>
                             </div>

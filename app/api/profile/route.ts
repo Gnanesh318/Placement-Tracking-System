@@ -34,10 +34,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-    console.log('PUT /api/profile called')
     try {
         const session = await getServerSession(authOptions)
-        console.log('Session:', session?.user?.email)
 
         if (!session?.user || session.user.role !== 'STUDENT') {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -59,7 +57,6 @@ export async function PUT(req: NextRequest) {
         })
 
         // Create new interests
-        console.log('Creating interests:', interests)
         await prisma.studentInterest.createMany({
             data: interests.map((domain: string) => ({
                 userId: session.user.id,
@@ -68,13 +65,11 @@ export async function PUT(req: NextRequest) {
         })
 
         // Update profile completion status
-        console.log('Updating user profile status')
         await prisma.user.update({
             where: { id: session.user.id },
             data: { profileCompleted: true },
         })
 
-        console.log('Profile update successful')
         return NextResponse.json({ message: 'Profile updated successfully' })
     } catch (error) {
         console.error('Profile update error:', error)

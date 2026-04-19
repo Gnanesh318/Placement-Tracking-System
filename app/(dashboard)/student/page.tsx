@@ -58,13 +58,13 @@ export default function StudentDashboard() {
                         Student Dashboard
                     </h1>
                     <p className="text-slate-500 mt-1">
-                        Welcome back! Here's what's happening with your placement progress.
+                        Welcome back! Here&apos;s what&apos;s happening with your placement progress.
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
                     <Link 
                         href="/student/drives" 
-                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+                        className="btn btn-primary"
                     >
                         Explore Drives
                         <ArrowRight size={18} />
@@ -130,7 +130,7 @@ export default function StudentDashboard() {
             </div>
 
             {/* Recent Activity Section */}
-            <Card className="border-none shadow-xl shadow-slate-200/50 overflow-hidden">
+            <Card className="border-none shadow-xl shadow-slate-200/50 overflow-hidden glass">
                 <div className="flex items-center justify-between p-6 pb-4 border-b border-slate-100">
                     <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2.5">
                         <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center">
@@ -138,7 +138,7 @@ export default function StudentDashboard() {
                         </div>
                         <span>Recent Applications</span>
                     </h3>
-                    <Link href="/student/applications" className="text-blue-600 text-sm font-semibold hover:underline transition-colors">
+                    <Link href="/student/applications" className="btn btn-secondary !px-4 !py-1.5 !text-xs">
                         View All
                     </Link>
                 </div>
@@ -150,11 +150,11 @@ export default function StudentDashboard() {
                         </div>
                         <h4 className="text-lg font-semibold text-slate-900 mb-2">No Applications Yet</h4>
                         <p className="text-slate-500 max-w-xs mx-auto mb-6">
-                            You haven't applied to any placement drives. Start exploring opportunities now!
+                            You haven&apos;t applied to any placement drives. Start exploring opportunities now!
                         </p>
                         <Link 
                             href="/student/drives" 
-                            className="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all"
+                            className="btn btn-primary"
                         >
                             Browse Placement Drives <ArrowRight size={18} />
                         </Link>
@@ -198,9 +198,9 @@ export default function StudentDashboard() {
                                             </div>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all inline-flex items-center justify-center">
+                                            <Link href="/student/applications" className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all inline-flex items-center justify-center">
                                                 <ArrowRight size={18} />
-                                            </button>
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))}

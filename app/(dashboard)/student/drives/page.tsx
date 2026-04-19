@@ -264,9 +264,9 @@ export default function StudentDrivesPage() {
                                     ) : (
                                         <button
                                             onClick={() => setConfirmApply(drive.id)}
-                                            className="w-full bg-slate-900 text-white py-4 px-6 rounded-2xl font-black flex items-center justify-center gap-2 text-sm hover:bg-blue-600 transition-all duration-300 shadow-xl shadow-slate-200 group-hover:shadow-blue-200"
+                                            className="btn btn-primary w-full group-hover:shadow-blue-600/20"
                                         >
-                                            Apply Now
+                                            <span>Apply Now</span>
                                             <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                         </button>
                                     )}

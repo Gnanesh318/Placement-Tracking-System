@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { 
-    GraduationCap, 
     Mail, 
     Lock, 
     User, 
@@ -15,10 +14,7 @@ import {
     Award, 
     Loader2, 
     ArrowRight,
-    CheckCircle2,
-    Briefcase,
-    Building2,
-    Users
+    GraduationCap
 } from 'lucide-react'
 
 export default function RegisterPage() {
@@ -32,6 +28,7 @@ export default function RegisterPage() {
         batch: '',
         cgpa: '',
     })
+    const [resumeFile, setResumeFile] = useState<File | null>(null)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -41,10 +38,17 @@ export default function RegisterPage() {
         setLoading(true)
 
         try {
+            const submitData = new FormData()
+            Object.entries(formData).forEach(([key, value]) => {
+                submitData.append(key, value)
+            })
+            if (resumeFile) {
+                submitData.append('resume', resumeFile)
+            }
+
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+                body: submitData,
             })
 
             const data = await response.json()
@@ -71,69 +75,20 @@ export default function RegisterPage() {
     return (
         <div
             id="main-content"
-            className="min-h-screen flex bg-white overflow-hidden"
+            className="min-h-screen bg-slate-100 px-4 py-10 sm:px-6"
             role="main"
             aria-label="Create placement portal account"
         >
-            {/* Left Side: Visual/Stats */}
-            <div className="hidden lg:flex lg:w-1/2 bg-blue-600 relative overflow-hidden items-center justify-center p-12">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2 blur-3xl"></div>
-                </div>
-                
-                <div className="relative z-10 w-full max-w-lg">
-                    <div className="mb-12">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-sm font-medium mb-6 backdrop-blur-sm border border-white/10">
-                            <GraduationCap size={16} />
-                            <span>Academic Success Portal</span>
-                        </div>
-                        <h1 className="text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                            Build Your Future <br />
-                            <span className="text-blue-200">With IPIMP.</span>
-                        </h1>
-                        <p className="text-blue-100 text-lg leading-relaxed mb-8">
-                            Join thousands of students who have successfully landed their dream careers through our integrated placement tracking system.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-6">
-                        {[
-                            { icon: Briefcase, label: "500+ Companies", desc: "Top global recruiters" },
-                            { icon: Building2, label: "2000+ Placements", desc: "Successfully placed" },
-                            { icon: Users, label: "Expert Mentors", desc: "Career guidance" },
-                            { icon: Award, label: "Skill Badges", desc: "Verify your expertise" }
-                        ].map((stat, i) => (
-                            <div key={i} className="bg-white/5 border border-white/10 backdrop-blur-md p-4 rounded-2xl">
-                                <stat.icon className="text-blue-200 mb-3" size={24} />
-                                <div className="text-white font-semibold">{stat.label}</div>
-                                <div className="text-blue-200/60 text-xs">{stat.desc}</div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-12 pt-8 border-t border-white/10">
-                        <div className="flex items-center gap-4">
-                            <div className="flex -space-x-3">
-                                {['A', 'B', 'C', 'D'].map((initial, i) => (
-                                    <div key={i} className="w-10 h-10 rounded-full border-2 border-blue-600 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        {initial}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="text-blue-100 text-sm">
-                                <span className="font-bold text-white">Join 10k+</span> students already registered
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Right Side: Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 bg-slate-50 overflow-y-auto">
-                <div className="w-full max-w-xl bg-white p-10 rounded-3xl shadow-xl shadow-blue-900/5 border border-slate-100">
+            <div className="mx-auto w-full max-w-2xl">
+                <div className="w-full bg-white p-8 sm:p-10 rounded-3xl shadow-xl shadow-slate-900/5 border border-slate-200">
                     <div className="mb-10">
-                        <div className="flex items-center gap-2 mb-4 lg:hidden">
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold border border-blue-100">
+                                <GraduationCap size={16} />
+                                <span>Academic Success Portal</span>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2 mb-3">
                             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
                                 P
                             </div>
@@ -288,10 +243,23 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
+                        <div className="space-y-2">
+                            <label className="text-sm font-semibold text-slate-700 ml-1">Resume (PDF)</label>
+                            <div className="relative group">
+                                <input
+                                    type="file"
+                                    accept=".pdf"
+                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-600 transition-all outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                    onChange={(e) => setResumeFile(e.target.files ? e.target.files[0] : null)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-600/20 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                            className="btn btn-primary w-full mt-6 py-4"
                         >
                             {loading ? (
                                 <Loader2 className="animate-spin" size={20} />

@@ -71,7 +71,7 @@ export default function AdminStudentsPage() {
     const hasActiveFilters = Object.values(filters).some(v => v !== '')
 
     return (
-        <div className="space-y-8 fade-in pb-20">
+        <div className="space-y-12 fade-in pb-20">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="min-w-0 flex-1">
@@ -99,10 +99,10 @@ export default function AdminStudentsPage() {
                     {hasActiveFilters && (
                         <button
                             onClick={clearFilters}
-                            className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-2 transition-all hover:gap-3 flex-shrink-0 whitespace-nowrap"
+                            className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-600 transition-all text-[10px] font-black uppercase tracking-wider flex items-center gap-2 border border-slate-200"
                         >
-                            <X size={16} />
-                            Reset all filters
+                            <X size={14} />
+                            Reset
                         </button>
                     )}
                 </div>
@@ -221,12 +221,12 @@ export default function AdminStudentsPage() {
                     </div>
                     <h3 className="text-2xl font-black text-slate-900">No Students Found</h3>
                     <p className="text-slate-500 max-w-sm mx-auto mt-3 font-medium">
-                        Try adjusting your filters to find the students you're looking for.
+                        Try adjusting your filters to find the students you&apos;re looking for.
                     </p>
                     {hasActiveFilters && (
                         <button 
                             onClick={clearFilters}
-                            className="mt-8 px-8 py-3 bg-slate-900 text-white rounded-xl font-black text-sm hover:bg-blue-600 transition-all shadow-xl shadow-slate-200"
+                            className="btn btn-primary mt-8"
                         >
                             Clear All Filters
                         </button>
@@ -303,7 +303,7 @@ export default function AdminStudentsPage() {
                             <div className="px-6 pb-6">
                                 <Link
                                     href={`/admin/students/${student.id}`}
-                                    className="w-full bg-slate-900 text-white py-3.5 px-6 rounded-xl font-bold flex items-center justify-center gap-2 text-sm hover:bg-blue-600 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-blue-200"
+                                    className="btn btn-primary w-full"
                                 >
                                     <span>View Detailed Profile</span>
                                     <ArrowUpRight size={18} className="flex-shrink-0" />

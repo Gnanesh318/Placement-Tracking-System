@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { getDomainLabel } from '@/lib/utils'
 import Card from '@/app/components/Card'
 import { 
@@ -26,6 +27,7 @@ const DOMAINS = [
 
 export default function StudentSetupPage() {
     const router = useRouter()
+    const { data: session, update } = useSession()
     const [selectedDomains, setSelectedDomains] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
@@ -60,7 +62,16 @@ export default function StudentSetupPage() {
                 throw new Error('Failed to update profile')
             }
 
-            router.push('/student')
+            if (session?.user) {
+                await update({
+                    user: {
+                        ...session.user,
+                        profileCompleted: true,
+                    },
+                })
+            }
+
+            router.replace('/student')
             router.refresh()
         } catch (err) {
             setError('An error occurred. Please try again.')

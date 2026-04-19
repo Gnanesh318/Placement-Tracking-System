@@ -11,8 +11,6 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
         }
 
-        console.log('GET /api/drives called by:', session.user.email, session.user.role)
-
         let drives
 
         if (session.user.role === 'ADMIN') {
@@ -32,10 +30,7 @@ export async function GET(req: NextRequest) {
                 where: { id: session.user.id },
             })
 
-            console.log('Student fetching drives:', user?.email, 'Dept:', user?.department, 'CGPA:', user?.cgpa)
-
             if (!user || !user.department || user.cgpa === null) {
-                console.log('Missing student details for eligibility check')
                 return NextResponse.json({ drives: [] })
             }
 
@@ -56,7 +51,6 @@ export async function GET(req: NextRequest) {
             })
         }
 
-        console.log(`Found ${drives.length} drives for user`)
         return NextResponse.json({ drives })
     } catch (error) {
         console.error('Drives fetch error:', error)

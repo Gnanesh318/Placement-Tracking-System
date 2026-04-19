@@ -1,0 +1,14 @@
+{
+  "base": "https://placement-tracking-system-virid.vercel.app",
+  "health": 200,
+  "studentEmail": "student653110@example.com",
+  "studentRegister": 201,
+  "studentLogin": 200,
+  "profileSetup": 200,
+  "sessionUpdate": 200,
+  "studentPageAfterSetup": 200,
+  "adminLogin": 200,
+  "adminPage": 200,
+  "adminAnalytics": 200,
+  "bootstrapEndpointStatus": 401
+}

@@ -1,0 +1,12 @@
+{
+  "email": "student549081@example.com",
+  "loginStatus": 200,
+  "beforeStatus": 307,
+  "beforeLocation": "/student/setup",
+  "setupStatus": 200,
+  "afterSetupBeforeSessionUpdateStatus": 307,
+  "afterSetupBeforeSessionUpdateLocation": "/student/setup",
+  "sessionUpdateStatus": 200,
+  "afterSessionUpdateStatus": 200,
+  "afterSessionUpdateLocation": ""
+}

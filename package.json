@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:status": "prisma migrate status",
+    "db:seed:admin": "ts-node --compiler-options {\"module\":\"CommonJS\"} scripts/seed-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",

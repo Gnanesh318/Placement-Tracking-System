@@ -34,6 +34,54 @@ import Link from 'next/link'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
+const COLOR_VARIANTS: Record<
+    string,
+    { bg: string; bgMed: string; text: string; textDark: string }
+> = {
+    blue: {
+        bg: 'bg-blue-50',
+        bgMed: 'bg-blue-100',
+        text: 'text-blue-600',
+        textDark: 'text-blue-700',
+    },
+    emerald: {
+        bg: 'bg-emerald-50',
+        bgMed: 'bg-emerald-100',
+        text: 'text-emerald-600',
+        textDark: 'text-emerald-700',
+    },
+    amber: {
+        bg: 'bg-amber-50',
+        bgMed: 'bg-amber-100',
+        text: 'text-amber-600',
+        textDark: 'text-amber-700',
+    },
+    purple: {
+        bg: 'bg-purple-50',
+        bgMed: 'bg-purple-100',
+        text: 'text-purple-600',
+        textDark: 'text-purple-700',
+    },
+    cyan: {
+        bg: 'bg-cyan-50',
+        bgMed: 'bg-cyan-100',
+        text: 'text-cyan-600',
+        textDark: 'text-cyan-700',
+    },
+    rose: {
+        bg: 'bg-rose-50',
+        bgMed: 'bg-rose-100',
+        text: 'text-rose-600',
+        textDark: 'text-rose-700',
+    },
+    default: {
+        bg: 'bg-slate-50',
+        bgMed: 'bg-slate-100',
+        text: 'text-slate-600',
+        textDark: 'text-slate-700',
+    },
+}
+
 export default function AdminDashboard() {
     const [analytics, setAnalytics] = useState<any>(null)
     const [loading, setLoading] = useState(true)
@@ -87,7 +135,7 @@ export default function AdminDashboard() {
     ]
 
     return (
-        <div className="space-y-8 fade-in">
+        <div className="space-y-12 fade-in pb-20">
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -100,12 +148,12 @@ export default function AdminDashboard() {
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-50 transition-all active:scale-95">
+                    <button onClick={() => window.print()} className="btn btn-secondary shadow-sm">
                         Export Report
                     </button>
                     <Link 
-                        href="/admin/drives/new" 
-                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+                        href="/admin/drives" 
+                        className="btn btn-primary"
                     >
                         Create Drive
                     </Link>
@@ -116,31 +164,25 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {kpis.map((kpi, index) => {
                     const Icon = kpi.icon;
-                    const colorVariants = {
-                        blue: { bg: 'bg-blue-50', bgMed: 'bg-blue-100', text: 'text-blue-600', textDark: 'text-blue-700' },
-                        emerald: { bg: 'bg-emerald-50', bgMed: 'bg-emerald-100', text: 'text-emerald-600', textDark: 'text-emerald-700' },
-                        amber: { bg: 'bg-amber-50', bgMed: 'bg-amber-100', text: 'text-amber-600', textDark: 'text-amber-700' },
-                        purple: { bg: 'bg-purple-50', bgMed: 'bg-purple-100', text: 'text-purple-600', textDark: 'text-purple-700' },
-                        cyan: { bg: 'bg-cyan-50', bgMed: 'bg-cyan-100', text: 'text-cyan-600', textDark: 'text-cyan-700' },
-                        rose: { bg: 'bg-rose-50', bgMed: 'bg-rose-100', text: 'text-rose-600', textDark: 'text-rose-700' }
-                    }[kpi.color as keyof typeof colorVariants] || { bg: 'bg-slate-50', bgMed: 'bg-slate-100', text: 'text-slate-600', textDark: 'text-slate-700' };
+                    const colorVariants =
+                        COLOR_VARIANTS[kpi.color] || COLOR_VARIANTS.default;
 
                     return (
-                        <Card key={index} className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 border-none bg-white">
-                            <div className={`absolute top-0 right-0 w-28 h-28 ${colorVariants.bg} rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-110 opacity-60`} />
+                        <Card key={index} className="relative overflow-hidden group hover:scale-[1.02] transition-all duration-300 border-none glass">
+                            <div className={`absolute top-0 right-0 w-32 h-32 ${colorVariants.bg} rounded-full -mr-12 -mt-12 transition-transform duration-500 group-hover:scale-125 opacity-70 blur-xl`} />
                             <div className="relative z-10 flex items-center gap-4">
-                                <div className={`w-14 h-14 ${colorVariants.bgMed} rounded-xl flex items-center justify-center ${colorVariants.text} flex-shrink-0 shadow-sm`}>
-                                    <Icon size={26} strokeWidth={2} />
+                                <div className={`w-14 h-14 ${colorVariants.bgMed} rounded-2xl flex items-center justify-center ${colorVariants.text} flex-shrink-0 shadow-sm backdrop-blur-sm border border-white/40`}>
+                                    <Icon size={26} strokeWidth={2.5} />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="text-2xl font-extrabold text-slate-900 leading-tight">
+                                    <div className="text-3xl font-black text-slate-900 leading-tight tracking-tight">
                                         {kpi.value}
                                     </div>
-                                    <div className="text-xs font-semibold text-slate-500 mt-1.5 uppercase tracking-wider truncate">
+                                    <div className="text-[11px] font-bold text-slate-500 mt-1 uppercase tracking-widest truncate">
                                         {kpi.label}
                                     </div>
                                 </div>
-                                <div className={`text-[10px] font-bold px-2.5 py-1 ${colorVariants.bg} ${colorVariants.textDark} rounded-md self-start flex-shrink-0`}>
+                                <div className={`text-[10px] font-black px-3 py-1.5 ${colorVariants.bg} ${colorVariants.textDark} rounded-xl self-start flex-shrink-0 shadow-sm border border-white/60`}>
                                     {kpi.trend}
                                 </div>
                             </div>
@@ -160,12 +202,12 @@ export default function AdminDashboard() {
                             <span>Domain Distribution</span>
                         </h3>
                     </div>
-                    <div className="p-3">
+                    <div className="p-3 h-[350px] relative">
                         <Bar
                             data={chartData}
                             options={{
                                 responsive: true,
-                                maintainAspectRatio: true,
+                                maintainAspectRatio: false, // Changed to false to respect container height
                                 plugins: {
                                     legend: { display: false },
                                     tooltip: {
@@ -181,10 +223,10 @@ export default function AdminDashboard() {
                                     y: {
                                         beginAtZero: true,
                                         ticks: { stepSize: 1, color: '#94a3b8', font: { size: 12 } },
-                                        grid: { color: '#f1f5f9', drawBorder: false }
+                                        grid: { color: '#f1f5f9' }
                                     },
                                     x: {
-                                        ticks: { color: '#64748b', font: { weight: '600', size: 11 } },
+                                        ticks: { color: '#64748b', font: { weight: 600, size: 11 } },
                                         grid: { display: false }
                                     }
                                 },
@@ -201,7 +243,7 @@ export default function AdminDashboard() {
                             </div>
                             <span>Recent Placements</span>
                         </h3>
-                        <Link href="/admin/students?status=PLACED" className="text-blue-600 text-sm font-semibold hover:underline transition-colors">
+                        <Link href="/admin/students?status=PLACED" className="btn btn-secondary !px-4 !py-1.5 !text-xs">
                             View All
                         </Link>
                     </div>
@@ -253,7 +295,7 @@ export default function AdminDashboard() {
                         </div>
                         <span>Recent Applications</span>
                     </h3>
-                    <Link href="/admin/students" className="text-blue-600 text-sm font-semibold hover:underline transition-colors">
+                    <Link href="/admin/students" className="btn btn-secondary !px-4 !py-1.5 !text-xs">
                         View All Applications
                     </Link>
                 </div>
@@ -305,9 +347,9 @@ export default function AdminDashboard() {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all inline-flex items-center justify-center">
+                                            <Link href={`/admin/students/${app.studentId}`} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all inline-flex items-center justify-center">
                                                 <ArrowRight size={18} />
-                                            </button>
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))}

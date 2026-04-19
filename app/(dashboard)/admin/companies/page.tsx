@@ -105,11 +105,7 @@ export default function AdminCompaniesPage() {
                 
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex-shrink-0 ${
-                        showForm 
-                        ? 'bg-slate-100 text-slate-600 hover:bg-slate-200 shadow-slate-200/50' 
-                        : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-600/20'
-                    }`}
+                    className={`btn flex-shrink-0 ${showForm ? 'btn-secondary' : 'btn-primary'}`}
                 >
                     {showForm ? (
                         <>
@@ -219,17 +215,17 @@ export default function AdminCompaniesPage() {
                                 <button 
                                     type="submit" 
                                     disabled={submitting}
-                                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98]"
+                                    className="btn btn-primary w-full md:w-auto px-10"
                                 >
                                     {submitting ? (
                                         <>
-                                            <Loader2 size={20} className="animate-spin" />
-                                            Adding...
+                                            <Loader2 size={18} className="animate-spin" />
+                                            <span>Adding...</span>
                                         </>
                                     ) : (
                                         <>
-                                            <CheckCircle2 size={20} />
-                                            Register Company
+                                            <CheckCircle2 size={18} />
+                                            <span>Register Company</span>
                                         </>
                                     )}
                                 </button>
@@ -288,11 +284,11 @@ export default function AdminCompaniesPage() {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="border-b border-slate-100">
-                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Company Info</th>
-                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Job Details</th>
-                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Compensation</th>
-                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Industry</th>
-                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-right">Actions</th>
+                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-left">Company Info</th>
+                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-left">Job Details</th>
+                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-left">Compensation</th>
+                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-left">Industry</th>
+                                    <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-right">Status</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
@@ -332,17 +328,7 @@ export default function AdminCompaniesPage() {
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Edit Company" aria-label="Edit company">
-                                                    <Edit3 size={18} />
-                                                </button>
-                                                <button className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all" title="Delete Company" aria-label="Delete company">
-                                                    <Trash2 size={18} />
-                                                </button>
-                                                <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" aria-label="View company details">
-                                                    <ArrowRight size={18} />
-                                                </button>
-                                            </div>
+                                            <span className="text-xs text-slate-400 font-medium">Active</span>
                                         </td>
                                     </tr>
                                 ))}

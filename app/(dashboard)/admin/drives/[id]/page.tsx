@@ -89,11 +89,11 @@ export default function DriveManagementPage() {
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Drive not found</h3>
                 <p className="text-slate-500 max-w-sm mx-auto mb-8">
-                    The placement drive you are looking for might have been removed or doesn't exist.
+                    The placement drive you are looking for might have been removed or doesn&apos;t exist.
                 </p>
                 <button 
                     onClick={() => router.back()}
-                    className="inline-flex items-center gap-2 text-blue-600 font-bold hover:underline"
+                    className="btn btn-secondary"
                 >
                     <ChevronLeft size={20} />
                     Go back to drives

@@ -119,7 +119,7 @@ export default function AdminDrivesPage() {
     )
 
     return (
-        <div className="space-y-8 fade-in">
+        <div className="space-y-12 fade-in pb-20">
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="min-w-0 flex-1">
@@ -136,11 +136,7 @@ export default function AdminDrivesPage() {
                 
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex-shrink-0 ${
-                        showForm 
-                        ? 'bg-slate-100 text-slate-600 hover:bg-slate-200 shadow-slate-200/50' 
-                        : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-600/20'
-                    }`}
+                    className={`btn flex-shrink-0 ${showForm ? 'btn-secondary' : 'btn-primary'}`}
                 >
                     {showForm ? (
                         <>
@@ -287,17 +283,17 @@ export default function AdminDrivesPage() {
                                 <button 
                                     type="submit" 
                                     disabled={submitting}
-                                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98]"
+                                    className="btn btn-primary w-full md:w-auto px-10"
                                 >
                                     {submitting ? (
                                         <>
-                                            <Loader2 size={20} className="animate-spin" />
-                                            Creating...
+                                            <Loader2 size={18} className="animate-spin" />
+                                            <span>Scheduling...</span>
                                         </>
                                     ) : (
                                         <>
-                                            <CheckCircle2 size={20} />
-                                            Schedule Drive
+                                            <CheckCircle2 size={18} />
+                                            <span>Schedule Drive</span>
                                         </>
                                     )}
                                 </button>
@@ -423,15 +419,13 @@ export default function AdminDrivesPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/admin/drives/${drive.id}`}
-                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-50 transition-all shadow-sm whitespace-nowrap"
+                                                    className="btn btn-secondary !px-4 !py-2 !text-xs"
                                                 >
                                                     <span>Manage</span>
-                                                    <ChevronRight size={16} className="flex-shrink-0" />
+                                                    <ChevronRight size={14} className="flex-shrink-0" />
                                                 </Link>
                                                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <button className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all" aria-label="Delete drive">
-                                                        <Trash2 size={18} />
-                                                    </button>
+                                                    {/* Additional actions can be added here later */}
                                                 </div>
                                             </div>
                                         </td>

@@ -58,7 +58,7 @@ export default function StudentIntelligencePage() {
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Student not found</h3>
                 <p className="text-slate-500 max-w-sm mx-auto mb-8">
-                    The student profile you are looking for might have been removed or doesn't exist.
+                    The student profile you are looking for might have been removed or doesn&apos;t exist.
                 </p>
                 <button 
                     onClick={() => router.back()}
@@ -151,6 +151,48 @@ export default function StudentIntelligencePage() {
                                         <div className="text-sm font-bold text-slate-700">{student.department}</div>
                                     </div>
                                 </div>
+                                {student.atsScore !== null && (
+                                    <div className="flex flex-col gap-3 p-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100/50 shadow-inner relative overflow-hidden">
+                                        <div className="absolute -top-6 -right-6 w-24 h-24 bg-purple-200/50 rounded-full blur-xl"></div>
+                                        <div className="relative flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-xl bg-white/80 shadow-sm flex items-center justify-center text-indigo-600 backdrop-blur-md">
+                                                <Activity size={20} />
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-0.5">Lumina AI Analysis</div>
+                                                <div className="flex items-end gap-2">
+                                                    <span className={`text-2xl font-black leading-none ${
+                                                        student.atsScore >= 80 ? 'text-emerald-600' :
+                                                        student.atsScore >= 60 ? 'text-amber-600' :
+                                                        'text-rose-600'
+                                                    }`}>
+                                                        {student.atsScore}
+                                                    </span>
+                                                    <span className="text-xs font-bold text-slate-400 mb-0.5">/ 100 ATS Match</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="relative text-xs font-medium text-indigo-900/70 leading-relaxed mt-1">
+                                            {student.atsScore >= 80 ? 'Exceptional profile. Highly recommended for top-tier product companies.' :
+                                             student.atsScore >= 60 ? 'Solid profile. Candidate is well-prepared for standard placement drives.' :
+                                             'Needs improvement. Recommend updating resume formatting and skills.'}
+                                        </div>
+                                    </div>
+                                )}
+                                {student.resumeUrl && (
+                                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/60 group hover:bg-white hover:border-blue-200 hover:shadow-lg transition-all cursor-pointer" onClick={() => window.open(student.resumeUrl, '_blank')}>
+                                        <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 group-hover:scale-110 group-hover:rotate-3 transition-all">
+                                            <FileText size={24} />
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="text-sm font-black text-slate-900">Candidate Resume</div>
+                                            <div className="text-xs font-medium text-slate-500 mt-0.5">PDF Document</div>
+                                        </div>
+                                        <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                            <ArrowUpRight size={16} />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </Card>
@@ -195,10 +237,7 @@ export default function StudentIntelligencePage() {
                     {/* Final Offer if any */}
                     {intelligence.finalOffer && (
                         <Card className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white border-none shadow-xl shadow-emerald-500/20 overflow-hidden relative">
-                            <div className="absolute top-0 right-0 p-4 opacity-20">
-                                <Award size={120} />
-                            </div>
-                            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 w-full">
                                 <div className="flex items-center gap-5">
                                     <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center">
                                         <Building2 size={32} />

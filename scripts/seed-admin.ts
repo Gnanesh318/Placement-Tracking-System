@@ -4,8 +4,14 @@ import * as bcrypt from 'bcryptjs'
 const prisma = new PrismaClient()
 
 async function main() {
-    const adminEmail = 'admin@college.edu'
-    const adminPassword = 'admin123'
+    const adminEmail = process.env.SEED_ADMIN_EMAIL
+    const adminPassword = process.env.SEED_ADMIN_PASSWORD
+
+    if (!adminEmail || !adminPassword) {
+        throw new Error(
+            'Missing SEED_ADMIN_EMAIL or SEED_ADMIN_PASSWORD. Refusing to seed admin with defaults.'
+        )
+    }
 
     const hashedPassword = await bcrypt.hash(adminPassword, 10)
 
@@ -23,7 +29,6 @@ async function main() {
             },
         })
         console.log(`Admin user created: ${admin.email}`)
-        console.log(`Password: ${adminPassword}`)
     } catch (e) {
         console.error(e)
         process.exit(1)
