@@ -10,7 +10,7 @@
     "db:generate": "prisma generate",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:status": "prisma migrate status",
-    "db:seed:admin": "ts-node --compiler-options {\"module\":\"CommonJS\"} scripts/seed-admin.ts"
+    "db:seed:admin": "npx tsx scripts/seed-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
@@ -35,6 +35,6 @@
     "typescript": "^5"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "npx tsx prisma/seed.ts"
   }
 }
