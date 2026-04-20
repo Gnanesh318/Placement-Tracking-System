@@ -105,9 +105,6 @@ export default function ProfilePage() {
             <div className="relative rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-100">
                 <div className="h-48 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay"></div>
-                    <button className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-lg text-white transition-all shadow-sm">
-                        <Edit3 size={18} />
-                    </button>
                 </div>
                 
                 <div className="px-8 pb-8 relative">
@@ -116,9 +113,6 @@ export default function ProfilePage() {
                             <div className="w-32 h-32 rounded-full border-4 border-white bg-slate-100 flex items-center justify-center shadow-xl overflow-hidden text-5xl font-bold text-blue-600 shadow-blue-900/10">
                                 {user.name?.charAt(0).toUpperCase()}
                             </div>
-                            <button className="absolute bottom-0 right-0 p-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 border-2 border-white">
-                                <Camera size={16} />
-                            </button>
                         </div>
                         
                         <div className="flex-1 pb-2">
@@ -139,10 +133,9 @@ export default function ProfilePage() {
                         </div>
 
                         <div className="pb-2 w-full md:w-auto flex justify-end">
-                            <button className="btn btn-primary w-full md:w-auto shadow-blue-500/30">
-                                <Settings size={18} />
-                                Account Settings
-                            </button>
+                            <div className="px-4 py-2 bg-slate-100 text-slate-500 rounded-xl text-sm font-bold border border-slate-200">
+                                Profile Active
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -208,9 +201,6 @@ export default function ProfilePage() {
                                 </div>
                                 About Me
                             </h3>
-                            <button className="text-blue-600 hover:text-blue-700 text-sm font-bold transition-colors">
-                                Edit Bio
-                            </button>
                         </div>
                         <p className="text-slate-600 leading-relaxed text-[15px]">
                             {user.role === 'STUDENT' 
@@ -227,9 +217,6 @@ export default function ProfilePage() {
                                 </div>
                                 Skills & Expertise
                             </h3>
-                            <button className="text-blue-600 hover:text-blue-700 text-sm font-bold transition-colors">
-                                Manage Skills
-                            </button>
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {['JavaScript', 'TypeScript', 'React.js', 'Next.js', 'Node.js', 'Prisma', 'MySQL', 'Tailwind CSS'].map((skill) => (

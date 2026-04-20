@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import Card from '@/app/components/Card'
 import { 
     Bell, 
@@ -66,6 +67,15 @@ const MOCK_NOTIFICATIONS = [
 ]
 
 export default function NotificationsPage() {
+    const [notifications, setNotifications] = React.useState(MOCK_NOTIFICATIONS)
+
+    const markAllAsRead = () => {
+        setNotifications(notifications.map(n => ({ ...n, isRead: true })))
+    }
+
+    const markAsRead = (id: number) => {
+        setNotifications(notifications.map(n => n.id === id ? { ...n, isRead: true } : n))
+    }
     return (
         <div className="space-y-8 fade-in max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -81,7 +91,10 @@ export default function NotificationsPage() {
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-all shadow-sm">
+                    <button 
+                        onClick={markAllAsRead}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-all shadow-sm"
+                    >
                         <Check size={18} />
                         Mark all as read
                     </button>
@@ -90,7 +103,7 @@ export default function NotificationsPage() {
 
             <Card className="border-none shadow-xl shadow-slate-200/50 p-0 overflow-hidden bg-white">
                 <div className="divide-y divide-slate-100">
-                    {MOCK_NOTIFICATIONS.map((notification) => {
+                    {notifications.map((notification) => {
                         const Icon = notification.icon;
                         
                         const colorStyles = {
@@ -130,7 +143,10 @@ export default function NotificationsPage() {
                                                 View Details
                                             </button>
                                             <span className="text-slate-300">•</span>
-                                            <button className="text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors">
+                                            <button 
+                                                onClick={() => markAsRead(notification.id)}
+                                                className="text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors"
+                                            >
                                                 Mark as read
                                             </button>
                                         </div>

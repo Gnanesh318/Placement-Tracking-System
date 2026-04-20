@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Card from '@/app/components/Card'
 import Badge from '@/app/components/Badge'
@@ -25,16 +26,19 @@ import {
     Hash
 } from 'lucide-react'
 
-export default function AdminStudentsPage() {
+function AdminStudentsContent() {
     const [students, setStudents] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
+    const searchParams = useSearchParams()
+    const statusQuery = searchParams ? searchParams.get('status') : null
+
     const [filters, setFilters] = useState({
         domain: '',
         minCgpa: '',
         maxCgpa: '',
         department: '',
         batch: '',
-        placementStatus: '',
+        placementStatus: statusQuery || '',
     })
 
     const loadStudents = useCallback(() => {
@@ -314,6 +318,19 @@ export default function AdminStudentsPage() {
                 </div>
             )}
         </div>
+    )
+}
+
+export default function AdminStudentsPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col items-center justify-center py-24">
+                <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+                <p className="text-slate-500 font-bold mt-6 tracking-wide uppercase text-xs">Loading...</p>
+            </div>
+        }>
+            <AdminStudentsContent />
+        </Suspense>
     )
 }
 

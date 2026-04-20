@@ -82,9 +82,9 @@ export default function Sidebar() {
                             {isAdmin ? 'Administrator' : 'Student'}
                         </p>
                     </div>
-                    <button className="user-settings-btn">
+                    <Link href="/profile" className="user-settings-btn" aria-label="User Settings">
                         <Settings size={16} />
-                    </button>
+                    </Link>
                 </div>
                 <button
                     onClick={() => signOut()}
